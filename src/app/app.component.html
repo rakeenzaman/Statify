@@ -1,0 +1,32 @@
+<div>statify</div>
+<button (click)="login()">Login with Spotify</button>
+
+<div *ngIf="loggedIn">
+  <div class="hello-text">Hi {{userName}}! Here are your Spotify stats from the last 6 months:</div>
+  <div class="main-sections">
+    <div class="section-container">
+      <div class="section-header">Top Artists</div>
+      <div class="artists">
+        <div class="artist" *ngFor="let artist of topArtists">
+            <img [src]="artist.image" />
+            <div class="artist-name">{{artist.name}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="section-container">
+      <div class="section-header">Top Tracks</div>
+      <div class="tracks">
+        <div class="track" *ngFor="let track of topTracks">
+            <img [src]="track.image" />
+            <div>
+              <div class="track-name">{{track.name}}</div>
+              <div class="track-artists">{{track.artists}}</div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<router-outlet />

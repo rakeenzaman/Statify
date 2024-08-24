@@ -1,0 +1,73 @@
+@font-face {
+    font-family: 'Nexa';
+    src: url('../../src/assets/fonts/Nexa-Heavy.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Nexa-Light';
+    src: url('../../src/assets/fonts/Nexa-ExtraLight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.main-sections {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    .section-container {
+        .artists, .tracks {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            .artist, .track {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 8px;
+                font-family: 'Nexa';
+                font-size: 20px;
+                padding: 6px;
+                border-radius: 50px;
+                padding-right: 14px;
+            
+                img {
+                    width: 40px;
+                    height: 40px;
+                    object-fit: cover;
+                    border-radius: 50%
+                }
+            }
+        }
+
+        .artist {
+            background-color: #fff4f7;
+            border: 3px solid #ff9eb9;
+            img {
+                width: 40px;
+                border: 3px solid #ff9eb9;
+            }
+        }
+
+        .track {
+            background-color: #f5fcff;
+            border: 3px solid #9edeff;
+            img {
+                width: 40px;
+                border: 3px solid #9edeff;
+            }
+
+            .track-name {
+                font-size: 18px;
+            }
+
+            .track-artists {
+                font-size: 16px;
+                font-family: 'Nexa-Light';
+                font-weight: 700;
+            }
+        }
+    }
+}
