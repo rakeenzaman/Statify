@@ -24,7 +24,7 @@
       <div class="section-container">
         <div class="section-header">Top Artists</div>
         <div class="artists">
-          <div class="artist" *ngFor="let artist of topArtists" [ngStyle]="{'background-image': 'url(' + artist.image + ')'}" @fadeIn>
+          <div class="artist" *ngFor="let artist of topArtists" @fadeIn>
               <img [src]="artist.image" />
               <div class="artist-name">{{artist.name}}</div>
           </div>
@@ -33,7 +33,7 @@
       <div class="section-container">
         <div class="section-header">Top Tracks</div>
         <div class="tracks">
-          <div class="track" *ngFor="let track of topTracks" [ngStyle]="{'background-image': 'url(' + track.image + ')'}" @fadeIn>
+          <div class="track" *ngFor="let track of topTracks" @fadeIn>
               <img [src]="track.image" />
               <div class="name-and-artists">
                 <div class="track-name">{{track.name}}</div>

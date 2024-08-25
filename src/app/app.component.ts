@@ -47,8 +47,6 @@ type ArtistsOrTracks = 'artists' | 'tracks';
   ]
 })
 
-//http://localhost:4200/#access_token=BQB1eiFF3LkU59l1qOtWkYpOmgkUqaChRtQu_mf2EY66IXdsKQWlMe3TOzlUgViUvVMZtOwt5XgWfpUisWMIo6dI7E_KmwXC7bebihQkuBkNlnZYHsKJ-xPrTDZJferqP_skoy_tKqH78hRWfAq7GgcvDek10YGVsfY9EoVNltmjDL_AKqoXZ7K6Qad1vn892PgOXQ&token_type=Bearer&expires_in=3600&state=OPDJ4CDLclWnDJCm
-
 export class AppComponent implements OnInit, OnDestroy {
   private clientId = '9e3ab08fc4b5445f8291b53528be8e26';
   title = 'Statify';
