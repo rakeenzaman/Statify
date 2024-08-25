@@ -12,17 +12,174 @@
     font-style: normal;
 }
 
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    @media (max-width: 768px) {
+        margin: 20px;
+    }
+
+    &.center {
+        justify-content: center;
+        height: 100%;
+    }
+}
+
+.headers {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    .header {
+        font-family: 'Nexa';
+        font-size: 64px;
+        line-height: 80px;
+        font-weight: 700;
+        background-image: linear-gradient(180deg, #ff83a6, #61caff);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .subheader {
+        font-family: 'Nexa-Light';
+        font-size: 12px;
+        color: #61caff;
+        font-weight: 700;
+    }
+
+    .log-in-btn {
+        display: flex;
+        margin-top: 16px;
+        font-family: 'Nexa-Light';
+        font-size: 20px;
+        font-weight: 800;
+        background-color: #1db954;
+        color: white;
+        padding: 8px 12px;
+        border: 3px solid #1db954;
+        border-radius: 12px;
+        transition: all 0.3s ease-in-out;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        &:hover {
+            background-color: white;
+            cursor: pointer;
+            color:#1db954;
+            transition: all 0.3s ease-in-out;
+
+            svg {
+                transition: all 0.3s ease-in-out;
+                fill: #1db954;
+            }
+        }
+
+        svg {
+            transition: all 0.3s ease-in-out;
+            fill: white;
+        }
+    }
+}
+
+.hello-text {
+    font-family: 'Nexa';
+    font-weight: 700;
+    color: rgb(53, 53, 53);
+    margin-bottom: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+
+    .top {
+        font-size: 36px;
+    }
+
+    .bottom {
+        font-size: 24px;
+
+        @media (max-width: 768px) {
+            span {
+                display: block;
+            }
+        }
+
+        .year, .months, .weeks {
+            padding: 0 5px;
+            margin: 0 2px;
+            transition: opacity 0.2s ease-in-out;
+            @media (max-width: 768px) {
+                width: fit-content;
+                margin: auto;
+            }
+            &:hover {
+                cursor: pointer;
+                outline: 2px solid rgb(53, 53, 53);
+                border-radius: 10px;
+            }
+            &.disabled {
+                opacity: 0.3;
+                &:hover {
+                    opacity: 0.6;
+                }
+            }
+            &.active {
+                border-radius: 10px;
+                outline: 2px solid rgb(53, 53, 53);
+            }
+        }
+    }
+}
+
 .main-sections {
-    width: 100%;
+    justify-content: center;
     display: flex;
     flex-direction: row;
     gap: 20px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
     .section-container {
+        margin-bottom: 50px;
+        .section-header {
+            text-align: center;
+            font-family: 'Nexa';
+            font-size: 24px;
+            font-weight: 700;
+            color: rgb(53, 53, 53);
+            margin-bottom: 10px;
+        }
         .artists, .tracks {
             display: flex;
             flex-direction: column;
             gap: 10px;
+            position: relative;
             .artist, .track {
+                &:nth-child(1) {
+                    &::after {
+                        position: absolute;
+                        right: 16px; 
+                        content: '💯';
+                        font-size: 24px;
+                    }
+                }
+                @media (max-width: 768px) {
+                    font-size: 16px;
+                }
                 display: flex;
                 flex-direction: row;
                 align-items: center;
@@ -34,10 +191,14 @@
                 padding-right: 14px;
             
                 img {
-                    width: 40px;
-                    height: 40px;
+                    width: 45px;
+                    height: 45px;
                     object-fit: cover;
-                    border-radius: 50%
+                    border-radius: 50%;
+                    @media (max-width: 768px) {
+                        width: 30px;
+                        height: 30px;
+                    }
                 }
             }
         }
@@ -45,28 +206,40 @@
         .artist {
             background-color: #fff4f7;
             border: 3px solid #ff9eb9;
+            background-position: center;
+            background-blend-mode: overlay;
             img {
-                width: 40px;
                 border: 3px solid #ff9eb9;
             }
         }
 
         .track {
-            background-color: #f5fcff;
+            background-color: #f2fcff;
+            background-position: center;
+            background-blend-mode: overlay;
             border: 3px solid #9edeff;
             img {
-                width: 40px;
                 border: 3px solid #9edeff;
             }
 
-            .track-name {
-                font-size: 18px;
-            }
-
-            .track-artists {
-                font-size: 16px;
-                font-family: 'Nexa-Light';
-                font-weight: 700;
+            .name-and-artists {
+                display: flex;
+                flex-direction: column;
+                .track-name {
+                    font-size: 17px;
+                    @media (max-width: 768px) {
+                        font-size: 16px;
+                    }
+                }
+    
+                .track-artists {
+                    font-size: 16px;
+                    font-family: 'Nexa-Light';
+                    font-weight: 700;
+                    @media (max-width: 768px) {
+                        font-size: 14px;
+                    }
+                }
             }
         }
     }

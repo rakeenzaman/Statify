@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { forkJoin, from, Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NgIf } from '@angular/common';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 interface AccessTokenResponse {
   access_token: string;
@@ -31,7 +32,19 @@ type ArtistsOrTracks = 'artists' | 'tracks';
   standalone: true,
   imports: [RouterOutlet, CommonModule, NgIf],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({
+        opacity: 0
+      })),
+      transition(':enter', [
+        animate('0.2s ease-in', style({
+          opacity: 1
+        }))
+      ])
+    ])
+  ]
 })
 
 //http://localhost:4200/#access_token=BQB1eiFF3LkU59l1qOtWkYpOmgkUqaChRtQu_mf2EY66IXdsKQWlMe3TOzlUgViUvVMZtOwt5XgWfpUisWMIo6dI7E_KmwXC7bebihQkuBkNlnZYHsKJ-xPrTDZJferqP_skoy_tKqH78hRWfAq7GgcvDek10YGVsfY9EoVNltmjDL_AKqoXZ7K6Qad1vn892PgOXQ&token_type=Bearer&expires_in=3600&state=OPDJ4CDLclWnDJCm
@@ -51,21 +64,21 @@ export class AppComponent implements OnInit, OnDestroy {
   topArtists: ArtistDetails[] = [];
   topTracks: TrackDetails[] = [];
   userName = '';
+  date_range: TimeRange = 'short_term';
 
   ngOnInit(): void {
     this.accessTokenResponse = this.parseHashFragment(window.location.href);
     if (this.accessTokenResponse.access_token) {
-      this.loggedIn = true;
-      this.isLoading = true;
       this.fetchData();
     }
   }
 
   fetchData(): void {
+    this.isLoading = true;
     this.subscriptions.add(
       forkJoin({
-        artists: this.getTopArtistsOrTracks('artists', 'long_term', '10'),
-        tracks: this.getTopArtistsOrTracks('tracks', 'medium_term', '10'),
+        artists: this.getTopArtistsOrTracks('artists', this.date_range, '10'),
+        tracks: this.getTopArtistsOrTracks('tracks', this.date_range, '10'),
         userData: this.getUserData()
       }).subscribe(({ artists, tracks, userData }) => {
         this.parseTracksData(tracks);
@@ -77,6 +90,12 @@ export class AppComponent implements OnInit, OnDestroy {
         this.userName = userData.display_name;
         console.log(this.userName);
         
+        this.isLoading = false;
+        this.loggedIn = true;
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+        this.loggedIn = false;
         this.isLoading = false;
       })
     );
@@ -162,6 +181,12 @@ export class AppComponent implements OnInit, OnDestroy {
         image: item.images[1].url
       } as ArtistDetails;
     });
+  }
+
+  changeDateRange(date_range: TimeRange): void {
+    console.log(date_range);
+    this.date_range = date_range;
+    this.fetchData();
   }
 
   ngOnDestroy(): void {
